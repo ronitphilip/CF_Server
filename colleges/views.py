@@ -222,8 +222,9 @@ class FilterDataView(views.APIView):
         unique_courses = []
         seen_courses = set()
         for course in Course.objects.all():
-            if course.name not in seen_courses:
-                seen_courses.add(course.name)
+            course_name_lower = course.name.lower()
+            if course_name_lower not in seen_courses:
+                seen_courses.add(course_name_lower)
                 unique_courses.append(course)
 
         courses_data = UniqueCourseSerializer(unique_courses, many=True).data
